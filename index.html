@@ -1,445 +1,388 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <!-- KODE ADSENSE (TIDAK DIUBAH) -->
-    <meta name="google-adsense-account" content="ca-pub-6265573430839351">
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GUPI24 CHANNEL - 3D Experience</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@300;700;900&family=Rajdhani:wght@400;600&display=swap');
+    <meta name="description" content="GUPI24 adalah portal berita digital yang menyajikan informasi terkini seputar Olahraga, Mitigasi Bencana Alam, dan Pariwisata Indonesia dengan visualisasi data interaktif.">
+    
+    <!-- --- KODE ADSENSE (TIDAK DIUBAH) --- -->
+    <meta name="google-adsense-account" content="ca-pub-6265573430839351">
+    <!-- ----------------------------------- -->
 
-        /* --- SETUP SCROLL SNAP (FITUR UTAMA) --- */
-        html {
-            scroll-behavior: smooth;
-            /* Ini yang bikin scroll dikit langsung pindah */
-            scroll-snap-type: y mandatory; 
+    <title>GUPI24 - Portal Berita & Visual Data Interaktif</title>
+    
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- ADSENSE SCRIPT -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6265573430839351" crossorigin="anonymous"></script>
+
+    <style>
+        /* --- RESET & VARIABLES --- */
+        :root {
+            --primary: #ffffff;
+            --secondary: #a0a0a0;
+            --glass: rgba(20, 20, 20, 0.75);
+            --border: rgba(255, 255, 255, 0.1);
         }
+
+        * { box-sizing: border-box; }
 
         body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100vh;
-            background-color: #000;
-            color: white;
-            font-family: 'Exo 2', sans-serif;
+            margin: 0; padding: 0;
+            background: #050505;
+            color: var(--primary);
+            font-family: 'Inter', sans-serif;
             overflow-x: hidden;
-            /* Sembunyikan scrollbar agar terlihat seperti aplikasi */
-            scrollbar-width: none; 
-            -ms-overflow-style: none;
         }
 
-        body::-webkit-scrollbar { 
-            display: none; 
-        }
-
-        /* 3D CANVAS DI BELAKANG */
+        /* --- 3D CANVAS (BACKGROUND) --- */
         #canvas-container {
-            position: fixed;
-            top: 0; left: 0;
+            position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
-            z-index: 0;
-            pointer-events: none; /* Mouse tembus ke scroll */
+            z-index: -1;
+            pointer-events: none;
         }
 
-        /* LAYOUT PER HALAMAN */
+        /* --- NAVBAR (WAJIB ADA UNTUK ADSENSE) --- */
+        nav {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            padding: 20px 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.5rem; letter-spacing: 2px; }
+        
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { 
+            color: var(--secondary); text-decoration: none; font-size: 0.9rem; 
+            transition: color 0.3s; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .nav-links a:hover { color: var(--primary); }
+
+        /* --- LAYOUT SECTIONS --- */
         section {
-            position: relative;
-            width: 100%;
-            height: 100vh; /* Full layar */
-            display: flex;
-            align-items: center;
-            padding: 0 8%;
-            box-sizing: border-box;
-            z-index: 2;
-            
-            /* Wajib ada untuk fitur snap scroll */
-            scroll-snap-align: start; 
-            scroll-snap-stop: always;
+            min-height: 100vh;
+            display: flex; align-items: center;
+            padding: 100px 5%; /* Padding atas ditambah agar tidak tertutup navbar */
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
-        /* UI CARD (GLASS EFFECT) */
-        .content-wrap {
-            background: rgba(20, 20, 20, 0.4);
-            border-top: 1px solid rgba(255, 255, 255, 0.3);
-            border-left: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+        /* --- CONTENT CARDS --- */
+        .card {
+            background: var(--glass);
+            border: 1px solid var(--border);
             padding: 40px;
-            border-radius: 20px;
-            max-width: 500px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            transform: translateY(50px);
+            border-radius: 16px;
+            max-width: 650px; /* Diperlebar agar teks terlihat banyak */
+            backdrop-filter: blur(20px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            transform: translateY(30px);
             opacity: 0;
-            transition: all 1s ease;
+            transition: all 0.8s ease;
         }
 
-        /* Saat section aktif, konten muncul */
-        section.active .content-wrap {
+        section.active .card {
             transform: translateY(0);
             opacity: 1;
         }
 
-        /* TEXT STYLING */
-        h2 {
+        /* --- TYPOGRAPHY --- */
+        h3 {
             font-family: 'Rajdhani', sans-serif;
-            color: #aaa;
-            font-size: 1.2rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        h2::before {
-            content: '';
-            width: 30px; height: 2px;
-            background: currentColor;
+            color: #aaa; margin: 0 0 10px 0;
+            text-transform: uppercase; letter-spacing: 3px; font-size: 0.9rem;
         }
 
         h1 {
-            font-size: 4rem;
-            line-height: 0.9;
-            margin: 15px 0;
-            text-transform: uppercase;
-            font-weight: 900;
-            background: linear-gradient(135deg, #fff 0%, #888 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            font-size: 3rem; margin: 0 0 20px 0; line-height: 1.1;
+            background: linear-gradient(to right, #fff, #888);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
         p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: #ccc;
-            margin-bottom: 30px;
+            line-height: 1.8; color: #ccc; margin-bottom: 25px; font-size: 1.05rem;
         }
 
-        /* BADGE (PENGGANTI TOMBOL) */
-        .visual-badge {
+        /* --- BUTTONS --- */
+        .btn {
             display: inline-block;
-            padding: 10px 25px;
+            padding: 12px 30px;
+            border: 1px solid rgba(255,255,255,0.3);
             background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: #fff;
+            color: white; text-decoration: none;
             font-family: 'Rajdhani', sans-serif;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            border-radius: 4px;
-            cursor: default; /* Tidak bisa diklik */
-            position: relative;
-            overflow: hidden;
+            text-transform: uppercase; letter-spacing: 2px;
+            transition: 0.3s;
+            cursor: pointer;
         }
+        .btn:hover { background: white; color: black; }
 
-        .visual-badge::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 3px; height: 100%;
-            background: currentColor;
+        /* --- FOOTER (PENTING UNTUK KREDIBILITAS) --- */
+        footer {
+            background: #0a0a0a;
+            padding: 60px 5% 30px;
+            border-top: 1px solid var(--border);
+            color: #666;
+            font-size: 0.9rem;
         }
-
-        /* VARIASI WARNA PER SECTION */
-        #sec-home h1 { background: linear-gradient(to right, #fff, #a1c4fd); -webkit-background-clip: text; }
-        #sec-home .visual-badge { color: #a1c4fd; box-shadow: 0 0 15px rgba(161, 196, 253, 0.2); }
-
-        #sec-bola { justify-content: flex-end; text-align: right; }
-        #sec-bola .content-wrap { border-left: none; border-right: 1px solid rgba(255,255,255,0.1); }
-        #sec-bola h2 { justify-content: flex-end; color: #00f2fe; }
-        #sec-bola h2::before { display: none; } 
-        #sec-bola h2::after { content: ''; width: 30px; height: 2px; background: currentColor; margin-left: 10px;}
-        #sec-bola h1 { background: linear-gradient(to right, #4facfe, #00f2fe); -webkit-background-clip: text; }
-        #sec-bola .visual-badge { color: #00f2fe; }
-        #sec-bola .visual-badge::after { left: auto; right: 0; }
-
-        #sec-bencana { justify-content: center; text-align: center; }
-        #sec-bencana h2 { justify-content: center; color: #ff0844; }
-        #sec-bencana h2::before { display: none; }
-        #sec-bencana h1 { background: linear-gradient(to right, #ff0844, #ffb199); -webkit-background-clip: text; }
-        #sec-bencana .visual-badge { color: #ff0844; border-color: #ff0844; }
-        #sec-bencana .visual-badge::after { width: 100%; height: 2px; top: auto; bottom: 0; }
-
-        #sec-wisata h2 { color: #43e97b; }
-        #sec-wisata h1 { background: linear-gradient(to right, #43e97b, #38f9d7); -webkit-background-clip: text; }
-        #sec-wisata .visual-badge { color: #43e97b; }
-
-        /* SCROLL INDICATOR */
-        .scroll-indicator {
-            position: absolute; bottom: 20px; left: 50%;
-            transform: translateX(-50%);
-            width: 20px; height: 35px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 15px;
-            display: flex; justify-content: center; padding-top: 5px;
-            opacity: 0.6;
+        .footer-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px;
+            margin-bottom: 40px;
         }
-        .scroll-indicator::before {
-            content:''; width: 4px; height: 8px;
-            background: white; border-radius: 2px;
-            animation: scrollDown 1.5s infinite;
-        }
+        .footer-links a { display: block; color: #888; text-decoration: none; margin-bottom: 10px; }
+        .footer-links a:hover { color: #fff; }
 
-        @keyframes scrollDown {
-            0% { opacity: 0; transform: translateY(0); }
-            50% { opacity: 1; }
-            100% { opacity: 0; transform: translateY(15px); }
-        }
+        /* --- COLORS PER SECTION --- */
+        #bola h1 { background: linear-gradient(to right, #4facfe, #00f2fe); -webkit-background-clip: text; }
+        #bencana h1 { background: linear-gradient(to right, #ff0844, #ffb199); -webkit-background-clip: text; }
+        #wisata h1 { background: linear-gradient(to right, #43e97b, #38f9d7); -webkit-background-clip: text; }
 
-        /* RESPONSIVE */
-        @media(max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            section { padding: 0 5%; justify-content: center !important; text-align: center !important; }
-            .content-wrap { padding: 25px; width: 100%; }
-            h2 { justify-content: center !important; }
-            h2::before, h2::after { display: none !important; }
-            .visual-badge::after { width: 100%; height: 2px; top: auto; bottom: 0; left: 0; }
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .nav-links { display: none; } /* Hamburger menu opsional, sembunyikan dulu biar rapi */
+            h1 { font-size: 2.2rem; }
+            section { padding: 80px 5%; }
         }
     </style>
 </head>
 <body>
 
+    <!-- NAVIGASI (PENTING: AdSense butuh ini untuk tau struktur situs) -->
+    <nav>
+        <div class="logo">GUPI24</div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#bola">Sport</a>
+            <a href="#bencana">News</a>
+            <a href="#wisata">Travel</a>
+            <!-- Link ke Privacy Policy sangat krusial -->
+            <a href="#">Privacy Policy</a> 
+        </div>
+    </nav>
+
     <div id="canvas-container"></div>
 
-    <!-- SECTION 1 -->
-    <section id="sec-home">
-        <div class="content-wrap">
-            <h2>Official Website</h2>
-            <h1>GUPI24<br>CHANNEL</h1>
-            <p>Portal visual masa depan. Scroll ke bawah untuk melihat dunia Olahraga, Berita Bencana, dan Wisata dalam dimensi baru.</p>
-            <div class="visual-badge">START SCROLLING</div>
-        </div>
-        <div class="scroll-indicator"></div>
-    </section>
-
-    <!-- SECTION 2 -->
-    <section id="sec-bola">
-        <div class="content-wrap">
-            <h2>The Arena</h2>
-            <h1>SPORT &<br>SOCCER</h1>
-            <p>Analisis tajam liga top dunia. Statistik, drama, dan highlight pertandingan yang dikemas dengan visual data futuristik.</p>
-            <div class="visual-badge">LIVE STATS</div>
+    <!-- SECTION 1: HOME / ABOUT -->
+    <section id="home">
+        <div class="card">
+            <h3>Selamat Datang di Portal Masa Depan</h3>
+            <h1>JURNALISME<br>VISUAL DATA</h1>
+            <p>
+                GUPI24 Channel menghadirkan pengalaman membaca berita yang berbeda. Kami menggabungkan jurnalisme akurat dengan teknologi visualisasi WebGL.
+                <br><br>
+                Di era informasi yang cepat, kami memfilter kebisingan dan menyajikan data yang relevan mengenai perkembangan olahraga global, pemantauan mitigasi bencana secara real-time, dan eksplorasi keindahan pariwisata Indonesia.
+            </p>
+            <a href="#bola" class="btn">Mulai Eksplorasi</a>
         </div>
     </section>
 
-    <!-- SECTION 3 -->
-    <section id="sec-bencana">
-        <div class="content-wrap">
-            <h2>Global Warning</h2>
-            <h1>ZONA<br>BENCANA</h1>
-            <p>Rekaman eksklusif kekuatan alam. Informasi mitigasi bencana dan fenomena viral yang terjadi di sekitar kita.</p>
-            <div class="visual-badge">RED ALERT</div>
+    <!-- SECTION 2: SPORT (Konten diperbanyak) -->
+    <section id="bola" style="justify-content: flex-end; text-align: right;">
+        <div class="card">
+            <h3>Sport Center & Analytics</h3>
+            <h1>ANALISIS<br>SEPAK BOLA</h1>
+            <p>
+                Dapatkan wawasan mendalam dari liga-liga top Eropa termasuk Premier League, La Liga, dan Serie A. Kami tidak hanya menyajikan skor akhir, 
+                tetapi juga statistik xG (Expected Goals), peta panas (heatmap) pergerakan pemain, dan analisis taktis pasca-pertandingan.
+                <br><br>
+                Pantau juga perkembangan Timnas Indonesia di kancah internasional dengan update berita eksklusif dan wawancara pemain.
+            </p>
+            <a href="#" class="btn">Baca Berita Bola</a>
         </div>
     </section>
 
-    <!-- SECTION 4 -->
-    <section id="sec-wisata">
-        <div class="content-wrap">
-            <h2>Hidden Paradise</h2>
-            <h1>WISATA<br>ALAM</h1>
-            <p>Jelajahi keindahan Indonesia. Dari Danau Toba hingga pegunungan hijau, nikmati sinematografi yang memanjakan mata.</p>
-            <div class="visual-badge">NATURE VIEW</div>
+    <!-- SECTION 3: BENCANA (Berita Serius) -->
+    <section id="bencana" style="justify-content: center; text-align: center;">
+        <div class="card">
+            <h3>Pusat Informasi & Mitigasi</h3>
+            <h1>PEMANTAUAN<br>BENCANA ALAM</h1>
+            <p>
+                Indonesia berada di kawasan Cincin Api (Ring of Fire) yang rawan bencana. Halaman ini didedikasikan untuk memberikan informasi terkini mengenai gempa bumi, potensi tsunami, dan erupsi gunung berapi.
+                <br><br>
+                Data kami terintegrasi dengan laporan BMKG untuk memastikan akurasi. Kami juga menyediakan panduan edukasi mitigasi bencana agar masyarakat lebih siap menghadapi situasi darurat.
+            </p>
+            <a href="#" class="btn">Cek Status Terkini</a>
         </div>
     </section>
 
-    <!-- LIBRARY -->
+    <!-- SECTION 4: WISATA -->
+    <section id="wisata">
+        <div class="card">
+            <h3>Wonderful Indonesia</h3>
+            <h1>EKSPEDISI<br>WISATA ALAM</h1>
+            <p>
+                Dari keindahan bawah laut Raja Ampat hingga kemegahan Candi Borobudur, temukan inspirasi liburan Anda di sini. Kami mengulas destinasi wisata tersembunyi (hidden gems) yang belum banyak dijamah.
+                <br><br>
+                Dapatkan tips perjalanan, rekomendasi akomodasi ramah lingkungan, dan panduan kuliner lokal yang otentik di setiap daerah di Nusantara.
+            </p>
+            <a href="#" class="btn">Lihat Destinasi</a>
+        </div>
+    </section>
+
+    <!-- FOOTER (WAJIB LENGKAP) -->
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <h4 style="color:white; margin-top:0;">TENTANG GUPI24</h4>
+                <p style="font-size:0.85rem;">GUPI24 adalah media independen yang berfokus pada penyajian data visual interaktif. Kami berkomitmen menyajikan berita yang faktual dan edukatif.</p>
+            </div>
+            <div class="footer-links">
+                <h4 style="color:white; margin-top:0;">KATEGORI</h4>
+                <a href="#bola">Sepak Bola & Olahraga</a>
+                <a href="#bencana">Info Gempa & Cuaca</a>
+                <a href="#wisata">Travel & Kuliner</a>
+                <a href="#">Teknologi</a>
+            </div>
+            <div class="footer-links">
+                <h4 style="color:white; margin-top:0;">LEGAL</h4>
+                <!-- Link ini wajib hidup/diklik (meski ke halaman sederhana) -->
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Disclaimer</a>
+                <a href="#">Contact Us</a>
+            </div>
+        </div>
+        <div style="text-align: center; border-top: 1px solid #222; padding-top: 20px;">
+            &copy; 2024 GUPI24 CHANNEL. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- SCRIPT LIBRARY -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    
-    <!-- ADSENSE SCRIPT -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6265573430839351"
-     crossorigin="anonymous"></script>
 
+    <!-- 3D ANIMATION LOGIC -->
     <script>
-        // --- 1. SETUP THREE.JS SCENE ---
         const scene = new THREE.Scene();
-        scene.fog = new THREE.FogExp2(0x000000, 0.02);
+        scene.fog = new THREE.FogExp2(0x050505, 0.03); // Kabut hitam agar menyatu dengan background
 
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.z = 8; // Kamera agak jauh biar objek besar masuk
+        camera.position.z = 6;
 
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(window.devicePixelRatio > 2 ? 2 : window.devicePixelRatio);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Optimasi performa
         document.getElementById('canvas-container').appendChild(renderer.domElement);
 
-        // --- 2. MEMBUAT MODEL 3D KOMPLEKS (PROCEDURAL) ---
-        
-        // GROUP UTAMA (Wadah semua objek)
-        const masterGroup = new THREE.Group();
-        scene.add(masterGroup);
+        // --- OBJECTS ---
+        const group = new THREE.Group();
+        scene.add(group);
 
-        // A. INTI UTAMA: TORUS KNOT (Simpul rumit)
-        const knotGeo = new THREE.TorusKnotGeometry(1.5, 0.4, 150, 20);
-        const knotMat = new THREE.MeshPhongMaterial({ 
+        // Icosahedron (Bentuk Geometris Modern)
+        const geometry = new THREE.IcosahedronGeometry(1.5, 1);
+        const material = new THREE.MeshStandardMaterial({ 
             color: 0xffffff, 
             wireframe: true,
-            emissive: 0x111111,
-            side: THREE.DoubleSide
+            roughness: 0.5,
+            metalness: 0.9
         });
-        const mainKnot = new THREE.Mesh(knotGeo, knotMat);
-        masterGroup.add(mainKnot);
+        const mainObj = new THREE.Mesh(geometry, material);
+        group.add(mainObj);
 
-        // B. CINCIN ORBIT (Gyroscope style)
-        const ringGeo = new THREE.TorusGeometry(3.5, 0.05, 16, 100);
-        const ringMat = new THREE.MeshBasicMaterial({ color: 0x555555, transparent: true, opacity: 0.5 });
-        
-        const ring1 = new THREE.Mesh(ringGeo, ringMat);
-        const ring2 = new THREE.Mesh(ringGeo, ringMat);
-        const ring3 = new THREE.Mesh(ringGeo, ringMat);
-
-        ring1.rotation.x = Math.PI / 2;
-        ring2.rotation.y = Math.PI / 2;
-        
-        // Bungkus cincin dalam satu grup agar bisa diputar terpisah
-        const ringGroup = new THREE.Group();
-        ringGroup.add(ring1);
-        ringGroup.add(ring2);
-        ringGroup.add(ring3);
-        masterGroup.add(ringGroup);
-
-        // C. FLOATING DEBRIS (Serpihan melayang)
-        const debrisCount = 150;
-        const debrisGroup = new THREE.Group();
-        const tetraGeo = new THREE.TetrahedronGeometry(0.2, 0);
-        const tetraMat = new THREE.MeshLambertMaterial({ color: 0xffffff });
-
-        for(let i=0; i<debrisCount; i++) {
-            const mesh = new THREE.Mesh(tetraGeo, tetraMat);
-            // Posisi acak menyebar luas
-            mesh.position.set(
-                (Math.random() - 0.5) * 20,
-                (Math.random() - 0.5) * 20,
-                (Math.random() - 0.5) * 10
-            );
-            mesh.rotation.set(Math.random(), Math.random(), Math.random());
-            debrisGroup.add(mesh);
+        // Particles (Debu Angkasa)
+        const starsGeo = new THREE.BufferGeometry();
+        const starsCount = 800;
+        const posArray = new Float32Array(starsCount * 3);
+        for(let i=0; i<starsCount*3; i++) {
+            posArray[i] = (Math.random() - 0.5) * 30;
         }
-        scene.add(debrisGroup);
+        starsGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        const starsMat = new THREE.PointsMaterial({ size: 0.03, color: 0xffffff, transparent: true, opacity: 0.6 });
+        const stars = new THREE.Points(starsGeo, starsMat);
+        scene.add(stars);
 
-        // --- 3. LIGHTING (Pencahayaan Dramatis) ---
-        const ambientLight = new THREE.AmbientLight(0x222222);
+        // --- LIGHTS ---
+        const ambientLight = new THREE.AmbientLight(0x404040);
         scene.add(ambientLight);
-
-        // Lampu Utama (Warna akan berubah via script)
-        const spotLight = new THREE.PointLight(0xffffff, 2, 50);
-        spotLight.position.set(5, 5, 5);
-        scene.add(spotLight);
         
-        // Lampu Backlight (Biru pudar)
-        const backLight = new THREE.PointLight(0x4444ff, 1, 50);
-        backLight.position.set(-5, -5, -5);
-        scene.add(backLight);
+        const light = new THREE.PointLight(0xffffff, 2, 50);
+        light.position.set(5, 5, 5);
+        scene.add(light);
 
-        // --- 4. ANIMASI LOOP ---
+        // --- ANIMATION ---
         let mouseX = 0;
         let mouseY = 0;
-
+        
+        // Mouse Move Effect
         document.addEventListener('mousemove', (e) => {
-            mouseX = (e.clientX - window.innerWidth/2) * 0.0005;
-            mouseY = (e.clientY - window.innerHeight/2) * 0.0005;
+            mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+            mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
         });
 
         function animate() {
             requestAnimationFrame(animate);
+            
+            mainObj.rotation.y += 0.003;
+            mainObj.rotation.x += 0.002;
+            stars.rotation.y -= 0.0005;
 
-            // Rotasi Otomatis
-            mainKnot.rotation.y += 0.005;
-            mainKnot.rotation.z += 0.002;
-
-            ringGroup.rotation.x += 0.002;
-            ringGroup.rotation.y -= 0.002;
-
-            debrisGroup.rotation.y -= 0.001;
-
-            // Parallax Mouse (sedikit saja biar elegan)
-            masterGroup.rotation.y += (mouseX - masterGroup.rotation.y) * 0.1;
-            masterGroup.rotation.x += (mouseY - masterGroup.rotation.x) * 0.1;
+            // Parallax halus
+            group.rotation.y += (mouseX * 0.3 - group.rotation.y) * 0.05;
+            group.rotation.x += (mouseY * 0.3 - group.rotation.x) * 0.05;
 
             renderer.render(scene, camera);
         }
         animate();
 
-        // --- 5. SCROLL TRIGGER ANIMATION (GSAP) ---
+        // --- SCROLL INTERACTION (GSAP) ---
         gsap.registerPlugin(ScrollTrigger);
 
-        // Helper function ganti warna
-        function updateTheme(colorHex, xPos, zPos, knotScale, chaosLevel) {
-            const col = new THREE.Color(colorHex);
-            
-            // Animasi Warna Material
-            gsap.to(knotMat.color, { r: col.r, g: col.g, b: col.b, duration: 1 });
-            gsap.to(knotMat.emissive, { r: col.r * 0.2, g: col.g * 0.2, b: col.b * 0.2, duration: 1 });
-            gsap.to(spotLight.color, { r: col.r, g: col.g, b: col.b, duration: 1 });
-            
-            // Animasi Posisi & Scale Objek Utama
-            gsap.to(masterGroup.position, { x: xPos, z: zPos, duration: 1.5, ease: "power2.out" });
-            gsap.to(mainKnot.scale, { x: knotScale, y: knotScale, z: knotScale, duration: 1.5 });
+        // Warna & Posisi Per Section
+        const configs = [
+            { color: '#ffffff', x: 0, scale: 1 },       // Home
+            { color: '#00f2fe', x: -3, scale: 1.2 },    // Bola (Objek ke kiri)
+            { color: '#ff0844', x: 0, scale: 1.5 },     // Bencana (Objek tengah besar)
+            { color: '#43e97b', x: 3, scale: 1.2 }      // Wisata (Objek ke kanan)
+        ];
 
-            // Animasi Chaos (untuk Bencana)
-            if(chaosLevel > 0) {
-                gsap.to(debrisGroup.rotation, { x: Math.PI, duration: 1 });
-                gsap.to(mainKnot.rotation, { x: Math.PI * 2, duration: 20, repeat: -1, ease: "none" }); // Putar gila
-            } else {
-                gsap.killTweensOf(mainKnot.rotation); // Stop putar gila
-            }
-        }
-
-        // DETEKSI SCROLL UNTUK MENGAKTIFKAN CLASS 'ACTIVE'
-        const sections = document.querySelectorAll('section');
-        sections.forEach((sec, i) => {
+        document.querySelectorAll('section').forEach((sec, i) => {
             ScrollTrigger.create({
                 trigger: sec,
                 start: "top center",
                 end: "bottom center",
                 onEnter: () => {
                     sec.classList.add('active');
-                    updateScene(i);
+                    update3D(i);
                 },
                 onEnterBack: () => {
                     sec.classList.add('active');
-                    updateScene(i);
+                    update3D(i);
                 },
                 onLeave: () => sec.classList.remove('active'),
                 onLeaveBack: () => sec.classList.remove('active')
             });
         });
 
-        // LOGIKA PERUBAHAN 3D BERDASARKAN INDEX SECTION
-        function updateScene(index) {
-            switch(index) {
-                case 0: // HOME (Putih/Biru Muda, Tengah)
-                    updateTheme("#a1c4fd", 0, 0, 1, 0);
-                    break;
-                case 1: // BOLA (Biru Neon, Kiri)
-                    updateTheme("#00f2fe", -3, 1, 1.2, 0);
-                    break;
-                case 2: // BENCANA (Merah, Tengah Zoom, Chaos)
-                    updateTheme("#ff0844", 0, 3, 0.8, 1);
-                    break;
-                case 3: // WISATA (Hijau, Kanan)
-                    updateTheme("#43e97b", 3, 0, 1.2, 0);
-                    break;
-            }
+        function update3D(index) {
+            const cfg = configs[index] || configs[0];
+            const col = new THREE.Color(cfg.color);
+
+            // Ganti Warna
+            gsap.to(material.color, { r: col.r, g: col.g, b: col.b, duration: 1 });
+            gsap.to(light.color, { r: col.r, g: col.g, b: col.b, duration: 1 });
+
+            // Ganti Posisi (Responsif Mobile)
+            let targetX = cfg.x;
+            if (window.innerWidth < 768) targetX = 0; // Di HP selalu tengah
+
+            gsap.to(group.position, { x: targetX, duration: 1.5, ease: "power2.out" });
+            gsap.to(group.scale, { x: cfg.scale, y: cfg.scale, z: cfg.scale, duration: 1.5 });
         }
 
-        // --- 6. HANDLE RESIZE ---
+        // Handle Resize
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
-
-        // Trigger awal
-        setTimeout(() => {
-            document.getElementById('sec-home').classList.add('active');
-            updateScene(0);
-        }, 100);
 
     </script>
 </body>
