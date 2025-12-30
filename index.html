@@ -3,343 +3,222 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="GUPI24 Channel menyajikan analisis mendalam tentang evolusi taktik sepak bola modern, teknologi mitigasi bencana alam, dan pengembangan ecotourism di Indonesia.">
+    <meta name="description" content="GUPI24 Channel - Blog analisis data sepak bola, teknologi mitigasi bencana, dan pariwisata Indonesia.">
     <meta name="author" content="GUPI24">
+    <meta name="robots" content="index, follow">
     
     <!-- --- KODE ADSENSE --- -->
     <meta name="google-adsense-account" content="ca-pub-6265573430839351">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6265573430839351" crossorigin="anonymous"></script>
     <!-- -------------------- -->
 
-    <title>GUPI24 - Analisis Data & Fenomena Indonesia</title>
+    <title>GUPI24 - Home Blog</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
 
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6265573430839351" crossorigin="anonymous"></script>
-
     <style>
-        /* --- CORE STYLES --- */
         :root {
-            --bg-dark: #0a0a0a;
+            --bg-dark: #0f0f12;
+            --card-bg: #1a1a20;
+            --accent: #00d2ff;
             --text-main: #e0e0e0;
             --text-muted: #a0a0a0;
-            --accent: #00d2ff;
-            --glass: rgba(15, 15, 15, 0.85);
-            --border: rgba(255, 255, 255, 0.1);
+            --border: #333;
         }
 
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            margin: 0; padding: 0;
             background-color: var(--bg-dark);
             color: var(--text-main);
-            font-family: 'Merriweather', serif; /* Font artikel yang enak dibaca */
-            line-height: 1.8;
-            overflow-x: hidden;
+            font-family: 'Merriweather', serif;
+            line-height: 1.6;
         }
 
-        /* --- 3D CANVAS (FIXED BG) --- */
-        #canvas-container {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; pointer-events: none; opacity: 0.6;
-        }
-
-        /* --- HEADER / NAV --- */
+        /* --- HEADER --- */
         header {
-            position: fixed; top: 0; left: 0; width: 100%;
-            padding: 15px 5%;
-            background: rgba(10,10,10,0.95);
+            background: var(--card-bg);
             border-bottom: 1px solid var(--border);
-            z-index: 100;
+            padding: 1rem 0;
+            position: sticky; top: 0; z-index: 1000;
+        }
+        .container {
+            max-width: 1100px; margin: 0 auto; padding: 0 20px;
+        }
+        .nav-flex {
             display: flex; justify-content: space-between; align-items: center;
         }
-
-        .brand { font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; font-weight: 700; color: white; letter-spacing: 2px; }
-        .nav-menu a { color: var(--text-muted); text-decoration: none; margin-left: 20px; font-family: 'Rajdhani', sans-serif; font-size: 0.9rem; text-transform: uppercase; }
-        .nav-menu a:hover { color: var(--accent); }
-
-        /* --- MAIN LAYOUT --- */
-        main {
-            max-width: 800px; /* Lebar standar blog agar terbaca enak */
-            margin: 0 auto;
-            padding-top: 100px; /* Space untuk header */
-            position: relative;
-            z-index: 2;
+        .brand {
+            font-family: 'Rajdhani', sans-serif; font-size: 1.8rem; font-weight: 700; color: white; text-decoration: none; letter-spacing: 2px;
         }
+        .nav-links a {
+            color: var(--text-muted); text-decoration: none; margin-left: 20px; font-family: 'Rajdhani', sans-serif; font-weight: 700; text-transform: uppercase; font-size: 0.9rem;
+        }
+        .nav-links a:hover { color: var(--accent); }
 
-        article {
-            background: var(--glass);
+        /* --- LAYOUT GRID --- */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr; /* 2 bagian konten, 1 bagian sidebar */
+            gap: 40px;
+            margin-top: 40px;
             margin-bottom: 60px;
-            padding: 40px;
-            border-radius: 12px;
+        }
+
+        /* --- BLOG CARDS --- */
+        .blog-post {
+            background: var(--card-bg);
             border: 1px solid var(--border);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            /* Animasi Fade In */
-            opacity: 0; transform: translateY(20px);
-            transition: all 0.8s ease;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            transition: transform 0.2s;
+        }
+        .blog-post:hover { transform: translateY(-5px); border-color: var(--accent); }
+        
+        .cat-tag {
+            background: rgba(0, 210, 255, 0.1); color: var(--accent);
+            padding: 5px 10px; font-size: 0.75rem; font-family: 'Rajdhani', sans-serif;
+            text-transform: uppercase; letter-spacing: 1px; border-radius: 4px;
         }
 
-        article.visible { opacity: 1; transform: translateY(0); }
-
-        /* --- TYPOGRAPHY --- */
-        h1.article-title {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 2.5rem;
-            line-height: 1.2;
-            margin-bottom: 15px;
-            background: linear-gradient(90deg, #fff, #bbb);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        h2.post-title {
+            margin: 15px 0; font-family: 'Rajdhani', sans-serif; font-size: 2rem; line-height: 1.2;
+        }
+        h2.post-title a { color: white; text-decoration: none; }
+        
+        .excerpt { color: #ccc; margin-bottom: 20px; font-size: 1rem; }
+        
+        .read-more {
+            display: inline-block; text-decoration: none; color: var(--bg-dark);
+            background: var(--accent); padding: 8px 20px; border-radius: 4px;
+            font-family: 'Rajdhani', sans-serif; font-weight: 700;
         }
 
-        .meta-info {
-            font-size: 0.85rem; color: var(--accent);
-            margin-bottom: 30px; font-family: 'Rajdhani', sans-serif; text-transform: uppercase; letter-spacing: 1px;
-            border-bottom: 1px solid var(--border); padding-bottom: 15px;
+        /* --- SIDEBAR --- */
+        .sidebar-widget {
+            background: var(--card-bg); border: 1px solid var(--border);
+            padding: 25px; border-radius: 8px; margin-bottom: 30px;
         }
-
-        p { margin-bottom: 20px; font-size: 1.1rem; color: #d1d1d1; }
-        strong { color: white; }
-
-        /* --- ADSENSE PLACEHOLDER (Agar layout tidak geser) --- */
-        .ad-slot {
-            width: 100%; height: auto; min-height: 100px;
-            background: rgba(255,255,255,0.02);
-            margin: 40px 0;
-            display: flex; align-items: center; justify-content: center;
-            border: 1px dashed #333;
-            color: #444; font-size: 0.8rem;
+        .widget-title {
+            font-family: 'Rajdhani', sans-serif; color: white;
+            border-bottom: 2px solid var(--accent); padding-bottom: 10px;
+            margin-bottom: 20px;
         }
+        .yt-btn {
+            display: block; width: 100%; text-align: center;
+            background: #ff0000; color: white; padding: 12px;
+            text-decoration: none; font-weight: bold; border-radius: 4px;
+            font-family: sans-serif; margin-bottom: 10px;
+        }
+        .sidebar-links li { list-style: none; margin-bottom: 10px; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        .sidebar-links a { color: var(--text-muted); text-decoration: none; }
+        .sidebar-links a:hover { color: var(--accent); }
 
         /* --- FOOTER --- */
         footer {
-            background: #000; padding: 50px 0; text-align: center;
-            border-top: 1px solid #222; margin-top: 100px; position: relative; z-index: 2;
+            background: #000; padding: 40px 0; text-align: center; border-top: 1px solid #222;
         }
-        .footer-links a { color: #666; text-decoration: none; margin: 0 10px; font-size: 0.9rem; }
-        .footer-links a:hover { color: #fff; }
+        .footer-nav a { color: #666; margin: 0 10px; text-decoration: none; font-size: 0.9rem; }
+        .footer-nav a:hover { color: white; }
 
         /* --- RESPONSIVE --- */
         @media(max-width: 768px) {
-            h1.article-title { font-size: 1.8rem; }
-            article { padding: 25px; margin: 0 15px 40px 15px; }
-            .nav-menu { display: none; } /* Mobile menu simplified */
+            .main-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; } /* Bisa diganti hamburger menu kalau mau kompleks */
         }
     </style>
 </head>
 <body>
 
-    <!-- BACKGROUND 3D -->
-    <div id="canvas-container"></div>
-
     <!-- HEADER -->
     <header>
-        <div class="brand">GUPI24</div>
-        <nav class="nav-menu">
-            <a href="#sport">Sport Analysis</a>
-            <a href="#tech">Disaster Tech</a>
-            <a href="#travel">Eco Travel</a>
-            <a href="#">Privacy Policy</a> <!-- Link wajib -->
-        </nav>
+        <div class="container nav-flex">
+            <a href="index.html" class="brand">GUPI24</a>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <!-- Link sesuai request -->
+                <a href="https://gupi24.vercel.app/news.html">News</a>
+                <a href="https://gupi24.vercel.app/asia.html">Asia</a>
+                <a href="https://www.youtube.com/@gupi24channel64" target="_blank">YouTube Channel</a>
+            </nav>
+        </div>
     </header>
 
-    <main>
+    <!-- CONTENT AREA -->
+    <div class="container main-grid">
         
-        <!-- INTRO HERO -->
-        <div style="text-align: center; padding: 60px 20px; margin-bottom: 40px;">
-            <h2 style="font-family: 'Rajdhani'; font-size: 3rem; margin-bottom: 10px;">PERSPEKTIF DATA</h2>
-            <p style="max-width: 600px; margin: 0 auto; color: #888;">
-                Jurnal visual yang menggabungkan data statistik dengan narasi mendalam seputar olahraga, fenomena alam, dan pariwisata Indonesia.
-            </p>
-        </div>
+        <!-- KOLOM KIRI: ARTIKEL -->
+        <main>
+            <!-- Artikel 1 -->
+            <article class="blog-post">
+                <span class="cat-tag">Sports Analysis</span>
+                <h2 class="post-title"><a href="https://gupi24.vercel.app/news.html">Revolusi Data xG dalam Sepak Bola Modern</a></h2>
+                <p class="excerpt">Analisis mendalam mengenai bagaimana Expected Goals (xG) mengubah cara pelatih Liga Eropa meracik strategi dan scouting pemain.</p>
+                <a href="https://gupi24.vercel.app/news.html" class="read-more">Baca Selengkapnya</a>
+            </article>
 
-        <!-- ARTIKEL 1: SPORT (FULL CONTENT - BUKAN CUMA SINOPSIS) -->
-        <article id="sport">
-            <div class="meta-info">Sports Analytics • 5 Min Read</div>
-            <h1 class="article-title">Revolusi Data dalam Sepak Bola Modern: Mengapa xG Lebih Penting dari Skor?</h1>
-            
-            <p>Sepak bola tidak lagi sekadar permainan 22 orang mengejar bola. Dalam dekade terakhir, <strong>Big Data</strong> telah mengubah cara pelatih meracik strategi dan cara klub merekrut pemain. Salah satu metrik yang paling revolusioner adalah <em>Expected Goals</em> (xG).</p>
-            
-            <p>Secara sederhana, xG mengukur kualitas peluang tembakan berdasarkan berbagai variabel: jarak ke gawang, sudut tembakan, hingga tekanan dari bek lawan. Sebuah tap-in di depan gawang mungkin memiliki nilai xG 0.90 (90% kemungkinan gol), sementara tembakan jarak jauh mungkin hanya 0.03.</p>
+            <!-- Artikel 2 -->
+            <article class="blog-post">
+                <span class="cat-tag">Disaster Tech</span>
+                <h2 class="post-title"><a href="https://gupi24.vercel.app/news.html">Teknologi Deteksi Dini Gempa di Cincin Api</a></h2>
+                <p class="excerpt">Indonesia berada di pertemuan lempeng. Bagaimana IoT dan sensor bawah laut membantu mitigasi bencana lebih cepat?</p>
+                <a href="https://gupi24.vercel.app/news.html" class="read-more">Baca Selengkapnya</a>
+            </article>
 
-            <!-- Iklan In-Article biasanya disisipkan di sini oleh Auto Ads -->
-            <div class="ad-slot">Advertisement Space (Auto Ads)</div>
+            <!-- Artikel 3 -->
+            <article class="blog-post">
+                <span class="cat-tag">Eco Travel</span>
+                <h2 class="post-title"><a href="https://gupi24.vercel.app/asia.html">Hidden Gems: Surga Tersembunyi Indonesia Timur</a></h2>
+                <p class="excerpt">Menjelajahi potensi ecotourism dari Sumba hingga Kepulauan Kei. Pariwisata berkelanjutan untuk masa depan.</p>
+                <a href="https://gupi24.vercel.app/asia.html" class="read-more">Baca Selengkapnya</a>
+            </article>
 
-            <p>Mengapa ini penting bagi fans? Skor akhir seringkali menipu. Sebuah tim bisa menang 1-0 lewat gol keberuntungan, padahal secara statistik mereka didominasi lawan. Dengan memahami data, kita bisa melihat performa tim yang sesungguhnya di luar hasil akhir papan skor.</p>
+            <!-- Paginasi Simpel -->
+            <div style="margin-top: 40px; text-align: center;">
+                <a href="#" style="color: white; text-decoration: none; border: 1px solid #333; padding: 10px 20px;">&larr; Previous</a>
+                <a href="#" style="color: white; text-decoration: none; border: 1px solid #333; padding: 10px 20px; margin-left: 10px;">Next &rarr;</a>
+            </div>
+        </main>
 
-            <p>Di GUPI24, kami menggunakan visualisasi 3D untuk memetakan pergerakan pemain (heatmap) dan distribusi operan. Ini memberikan wawasan bahwa kemenangan bukan hanya soal keberuntungan, tapi hasil dari probabilitas matematis yang dieksekusi dengan presisi fisik.</p>
-        </article>
+        <!-- KOLOM KANAN: SIDEBAR (Penting buat kesan Blog Profesional) -->
+        <aside>
+            <!-- Widget About -->
+            <div class="sidebar-widget">
+                <h3 class="widget-title">About GUPI24</h3>
+                <p style="color: #ccc; font-size: 0.9rem; margin-bottom: 15px;">
+                    Portal analisis data yang menggabungkan statistik olahraga, fenomena alam, dan travel dengan visualisasi mendalam.
+                </p>
+                <!-- Link YouTube Request -->
+                <a href="https://www.youtube.com/@gupi24channel64" class="yt-btn" target="_blank">Subscribe on YouTube</a>
+            </div>
 
-        <!-- ARTIKEL 2: BENCANA -->
-        <article id="tech">
-            <div class="meta-info">Disaster Mitigation • 4 Min Read</div>
-            <h1 class="article-title">Hidup di Cincin Api: Teknologi Deteksi Dini Gempa Bumi</h1>
-            
-            <p>Indonesia adalah rumah bagi ratusan gunung berapi aktif dan pertemuan lempeng tektonik utama dunia. Realitas geologis ini menuntut kita untuk hidup berdampingan dengan risiko bencana. Namun, teknologi kini menjadi garda terdepan dalam upaya mitigasi.</p>
-            
-            <p>Sistem Peringatan Dini (Early Warning System) modern tidak hanya mengandalkan seismograf analog. Kini, sensor dasar laut dan pemantauan satelit real-time memungkinkan BMKG mendeteksi potensi tsunami hanya dalam hitungan menit setelah gempa terjadi.</p>
+            <!-- Widget Categories -->
+            <div class="sidebar-widget">
+                <h3 class="widget-title">Kategori</h3>
+                <ul class="sidebar-links">
+                    <li><a href="https://gupi24.vercel.app/news.html">Sports Analytics</a></li>
+                    <li><a href="https://gupi24.vercel.app/news.html">Disaster Tech</a></li>
+                    <li><a href="https://gupi24.vercel.app/asia.html">Travel & Asia</a></li>
+                </ul>
+            </div>
+        </aside>
 
-            <p>Tantangan terbesarnya bukan lagi pada alat, melainkan pada diseminasi informasi. Bagaimana peringatan tersebut sampai ke smartphone penduduk desa pesisir dalam detik-detik krusial? Integrasi IoT (Internet of Things) dan sirine berbasis seluler menjadi solusi masa depan yang sedang digalakkan.</p>
-            
-            <p>Melalui portal ini, kami menyajikan data gempa terkini yang divisualisasikan secara interaktif, membantu masyarakat memahami pola aktivitas seismik di wilayah mereka tanpa rasa panik berlebihan.</p>
-        </article>
+    </div>
 
-        <!-- ARTIKEL 3: WISATA -->
-        <article id="travel">
-            <div class="meta-info">Sustainable Tourism • 6 Min Read</div>
-            <h1 class="article-title">Hidden Gems: Menjelajahi Surga Tersembunyi di Timur Indonesia</h1>
-            
-            <p>Pariwisata Indonesia seringkali hanya berpusat pada Bali dan Yogyakarta. Padahal, kekayaan alam sesungguhnya terbentang luas di wilayah Timur. Dari Kepulauan Kei di Maluku hingga perbukitan savana di Sumba, potensi <em>ecotourism</em> kita tak terbatas.</p>
-            
-            <p>Tren pariwisata pasca-pandemi telah bergeser. Wisatawan tidak lagi mencari keramaian, melainkan ketenangan dan koneksi dengan alam (healing). Destinasi seperti Labuan Bajo kini menjadi primadona baru, namun hal ini membawa tantangan tersendiri: keberlanjutan lingkungan.</p>
-            
-            <div class="ad-slot">Advertisement Space (Auto Ads)</div>
-
-            <p>Pengembangan wisata harus diimbangi dengan konservasi. Jangan sampai keindahan karang di Raja Ampat rusak karena over-tourism. Konsep <em>Sustainable Tourism</em> mengajak pelancong untuk tidak hanya menikmati, tapi juga menjaga ekosistem lokal.</p>
-            
-            <p>Kami mendokumentasikan lokasi-lokasi eksotis ini dengan sinematografi visual, mengajak Anda berpetualang secara virtual sebelum Anda benar-benar menjejakkan kaki di sana.</p>
-        </article>
-
-    </main>
-
-    <!-- FOOTER WAJIB -->
+    <!-- FOOTER -->
     <footer>
-        <div style="margin-bottom: 20px; color: #888;">
-            &copy; 2024 GUPI24 Channel. All Rights Reserved.
+        <div class="container">
+            <div class="footer-nav">
+                <a href="index.html">Home</a>
+                <a href="https://gupi24.vercel.app/privacy.html">Privacy Policy</a>
+                <a href="https://gupi24.vercel.app/privacy.html">Disclaimer</a>
+                <a href="mailto:contact@gupi24.com">Contact</a>
+            </div>
+            <p style="margin-top: 20px; color: #444; font-size: 0.8rem;">&copy; 2024 GUPI24. All Rights Reserved.</p>
         </div>
-        <div class="footer-links">
-            <!-- Link ini HARUS mengarah ke halaman yang ada. Kalau belum ada, buat file kosong namanya privacy.html -->
-            <a href="#">Tentang Kami</a> |
-            <a href="#">Privacy Policy</a> |
-            <a href="#">Disclaimer</a> |
-            <a href="#">Kontak</a>
-        </div>
-        <p style="margin-top: 30px; font-size: 0.7rem; color: #444; max-width: 600px; margin-left: auto; margin-right: auto;">
-            Situs ini menggunakan teknologi 3D WebGL untuk tujuan edukasi dan informasi. Pastikan browser Anda mendukung akselerasi perangkat keras untuk pengalaman terbaik.
-        </p>
     </footer>
 
-    <!-- LIBRARIES -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
-    <!-- 3D SCRIPT (Dioptimalkan agar tidak berat & tidak mengganggu teks) -->
-    <script>
-        // 1. SETUP SCENE
-        const scene = new THREE.Scene();
-        // Warna kabut disamakan dengan background body agar seamless
-        scene.fog = new THREE.FogExp2(0x0a0a0a, 0.02);
-
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.z = 8;
-
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(window.devicePixelRatio > 1 ? 1.5 : 1); // Optimasi performa HP
-        document.getElementById('canvas-container').appendChild(renderer.domElement);
-
-        // 2. OBJEK ABSTRAK (Partikel & Garis Koneksi)
-        const group = new THREE.Group();
-        scene.add(group);
-
-        // Geometri Bola Kawat (Wireframe Sphere)
-        const geometry = new THREE.IcosahedronGeometry(3, 2);
-        const material = new THREE.MeshBasicMaterial({ 
-            color: 0x333333, 
-            wireframe: true,
-            transparent: true,
-            opacity: 0.3
-        });
-        const sphere = new THREE.Mesh(geometry, material);
-        group.add(sphere);
-
-        // Partikel Melayang
-        const starGeo = new THREE.BufferGeometry();
-        const starCount = 600;
-        const posArray = new Float32Array(starCount * 3);
-        
-        for(let i=0; i<starCount*3; i++) {
-            posArray[i] = (Math.random() - 0.5) * 25;
-        }
-        
-        starGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-        const starMat = new THREE.PointsMaterial({ size: 0.05, color: 0xaaaaaa });
-        const stars = new THREE.Points(starGeo, starMat);
-        scene.add(stars);
-
-        // 3. CAHAYA (Redup agar teks terbaca)
-        const ambientLight = new THREE.AmbientLight(0x404040);
-        scene.add(ambientLight);
-
-        // 4. ANIMASI LOOP
-        let mouseX = 0;
-        let mouseY = 0;
-
-        document.addEventListener('mousemove', (e) => {
-            mouseX = (e.clientX / window.innerWidth - 0.5) * 1;
-            mouseY = (e.clientY / window.innerHeight - 0.5) * 1;
-        });
-
-        function animate() {
-            requestAnimationFrame(animate);
-
-            // Rotasi Lambat Konstan
-            sphere.rotation.y += 0.002;
-            stars.rotation.y -= 0.001;
-
-            // Efek Interaktif Mouse
-            group.rotation.y += (mouseX - group.rotation.y) * 0.05;
-            group.rotation.x += (mouseY - group.rotation.x) * 0.05;
-
-            renderer.render(scene, camera);
-        }
-        animate();
-
-        // 5. INTERAKSI SCROLL (GSAP)
-        gsap.registerPlugin(ScrollTrigger);
-
-        // Efek Muncul Artikel
-        const articles = document.querySelectorAll('article');
-        articles.forEach((art) => {
-            ScrollTrigger.create({
-                trigger: art,
-                start: "top 80%", // Muncul saat scroll mencapai 80% viewport
-                onEnter: () => art.classList.add('visible'),
-                onLeaveBack: () => art.classList.remove('visible') // Opsional: hilang kalau scroll balik ke atas
-            });
-        });
-
-        // Efek Warna Background 3D Berubah Sesuai Konten
-        const colors = [
-            { id: "sport", color: 0x00d2ff }, // Biru
-            { id: "tech", color: 0xff4d4d },  // Merah
-            { id: "travel", color: 0x4dff88 } // Hijau
-        ];
-
-        colors.forEach((theme) => {
-            ScrollTrigger.create({
-                trigger: `#${theme.id}`,
-                start: "top center",
-                end: "bottom center",
-                onEnter: () => changeColor(theme.color),
-                onEnterBack: () => changeColor(theme.color)
-            });
-        });
-
-        function changeColor(hex) {
-            gsap.to(material.color, { r: new THREE.Color(hex).r, g: new THREE.Color(hex).g, b: new THREE.Color(hex).b, duration: 1 });
-            gsap.to(starMat.color, { r: new THREE.Color(hex).r, g: new THREE.Color(hex).g, b: new THREE.Color(hex).b, duration: 1 });
-        }
-
-        // Resize Fix
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-
-    </script>
 </body>
 </html>
