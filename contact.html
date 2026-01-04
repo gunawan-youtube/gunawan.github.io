@@ -21,11 +21,11 @@
         body { background-color: var(--bg-dark); color: var(--text-main); font-family: 'Merriweather', serif; line-height: 1.6; }
         
         header { background: var(--card-bg); border-bottom: 1px solid var(--border); padding: 1rem 0; position: sticky; top: 0; z-index: 1000; }
-        .container { max-width: 800px; margin: 0 auto; padding: 0 20px; } /* Lebih sempit untuk form */
-        .nav-flex { display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; } /* Nav tetap lebar */
+        .container { max-width: 800px; margin: 0 auto; padding: 0 20px; } 
+        .nav-flex { display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; } 
         
         .brand { font-family: 'Rajdhani', sans-serif; font-size: 1.8rem; font-weight: 700; color: white; text-decoration: none; letter-spacing: 2px; }
-        .nav-links a { color: var(--text-muted); text-decoration: none; margin-left: 20px; font-family: 'Rajdhani', sans-serif; font-weight: 700; text-transform: uppercase; font-size: 0.9rem; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; margin-left: 20px; font-family: 'Rajdhani', sans-serif; font-weight: 700; text-transform: uppercase; font-size: 0.9rem; transition: color 0.3s; }
         .nav-links a:hover { color: var(--accent); }
 
         .page-content { background: var(--card-bg); border: 1px solid var(--border); padding: 40px; border-radius: 8px; margin: 40px auto; }
@@ -45,19 +45,23 @@
         button.submit-btn:hover { background: white; }
 
         footer { background: #000; padding: 40px 0; text-align: center; border-top: 1px solid #222; margin-top: auto; }
-        .footer-nav a { color: #666; margin: 0 10px; text-decoration: none; font-size: 0.9rem; }
-        .footer-nav a:hover { color: white; }
+        .footer-nav a { color: #666; margin: 0 10px; text-decoration: none; font-size: 0.9rem; transition: color 0.3s; }
+        .footer-nav a:hover { color: var(--accent); }
+        
+        /* Responsive */
+        @media(max-width: 768px) { .nav-links { display: none; } }
     </style>
 </head>
 <body>
 
     <header>
         <div class="nav-flex" style="padding: 0 20px;">
-            <a href="https://gupi24.vercel.app/index.html" class="brand">GUPI24</a>
+            <a href="index.html" class="brand">GUPI24</a>
             <nav class="nav-links">
-                <a href="https://gupi24.vercel.app/index.html">Home</a>
+                <a href="index.html">Home</a>
                 <a href="https://gupi24.vercel.app/news.html">News</a>
                 <a href="https://gupi24.vercel.app/asia.html">Asia</a>
+                <a href="about.html">About</a>
             </nav>
         </div>
     </header>
@@ -65,9 +69,27 @@
     <div class="container">
         <main class="page-content">
             <h1>Hubungi Kami</h1>
-            <p style="margin-bottom: 30px; color: #a0a0a0;">Punya pertanyaan tentang artikel kami atau ingin beriklan? Silakan isi formulir di bawah ini atau email langsung ke <strong>contact@gupi24.com</strong>.</p>
+            <!-- Update Email Text -->
+            <p style="margin-bottom: 30px; color: #a0a0a0;">
+                Punya pertanyaan tentang artikel kami atau ingin beriklan? Silakan isi formulir di bawah ini atau email langsung ke 
+                <strong style="color:white;">gunawan.s0301@gmail.com</strong>.
+            </p>
             
-            <form action="#" method="POST">
+            <!-- FORM SETUP (Menggunakan FormSubmit.co agar masuk ke Gmail kamu) -->
+            <form action="https://formsubmit.co/gunawan.s0301@gmail.com" method="POST">
+                
+                <!-- Anti Spam (Honeypot) -->
+                <input type="text" name="_honey" style="display:none">
+                
+                <!-- Disable Captcha (Optional, biar user cepat kirim) -->
+                <input type="hidden" name="_captcha" value="false">
+                
+                <!-- Halaman redirect setelah sukses kirim -->
+                <input type="hidden" name="_next" value="https://gupi24.vercel.app/contact.html">
+
+                <!-- Subject Email -->
+                <input type="hidden" name="_subject" value="Pesan Baru dari Website GUPI24">
+
                 <div class="form-group">
                     <label for="name">Nama Lengkap</label>
                     <input type="text" id="name" name="name" required placeholder="Masukkan nama Anda">
@@ -76,11 +98,6 @@
                 <div class="form-group">
                     <label for="email">Alamat Email</label>
                     <input type="email" id="email" name="email" required placeholder="contoh@email.com">
-                </div>
-                
-                <div class="form-group">
-                    <label for="subject">Subjek</label>
-                    <input type="text" id="subject" name="subject" placeholder="Perihal pesan">
                 </div>
                 
                 <div class="form-group">
@@ -96,11 +113,10 @@
     <footer>
         <div class="container">
             <div class="footer-nav">
-                <a href="https://gupi24.vercel.app/index.html">Home</a>
-                <a href="https://gupi24.vercel.app/privacy-policy.html">Privacy Policy</a>
-                <a href="https://gupi24.vercel.app/terms.html">Terms of Service</a>
-                <!-- Link ke diri sendiri agar konsisten -->
-                <a href="https://gupi24.vercel.app/contact.html" style="color:white;">Contact</a> 
+                <a href="index.html">Home</a>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+                <a href="contact.html" style="color:var(--accent);">Contact</a> 
             </div>
             <p style="margin-top: 20px; color: #444; font-size: 0.8rem;">&copy; 2024 GUPI24. All Rights Reserved.</p>
         </div>
