@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+   <!-- HALAMAN UTAMA -->
+   <url>
+      <loc>https://gupi24.vercel.app/</loc>
+      <lastmod>2024-05-22</lastmod>
+      <changefreq>daily</changefreq>
+      <priority>1.00</priority>
+   </url>
+
+   <!-- HALAMAN PENDUKUNG (STATIC) -->
+   <url>
+      <loc>https://gupi24.vercel.app/about.html</loc>
+      <lastmod>2024-05-22</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.80</priority>
+   </url>
+   <url>
+      <loc>https://gupi24.vercel.app/contact.html</loc>
+      <lastmod>2024-05-22</lastmod>
+      <changefreq>yearly</changefreq>
+      <priority>0.50</priority>
+   </url>
+   <url>
+      <loc>https://gupi24.vercel.app/privacy-policy.html</loc>
+      <lastmod>2024-05-22</lastmod>
+      <changefreq>yearly</changefreq>
+      <priority>0.50</priority>
+   </url>
+   <url>
+      <loc>https://gupi24.vercel.app/terms.html</loc>
+      <lastmod>2024-05-22</lastmod>
+      <changefreq>yearly</changefreq>
+      <priority>0.50</priority>
+   </url>
+
+   <!-- KATEGORI (Jika file ini ada) -->
+   <url>
+      <loc>https://gupi24.vercel.app/news.html</loc>
+      <lastmod>2024-05-22</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.80</priority>
+   </url>
+   <url>
+      <loc>https://gupi24.vercel.app/asia.html</loc>
+      <lastmod>2024-05-22</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.80</priority>
+   </url>
+
+   <!-- DAFTAR ARTIKEL (ARTICLES FOLDER) -->
+   <url>
+      <loc>https://gupi24.vercel.app/articles/revolusi-xg-bola.html</loc>
+      <lastmod>2024-05-22</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.90</priority>
+   </url>
+   <url>
+      <loc>https://gupi24.vercel.app/articles/teknologi-gempa.html</loc>
+      <lastmod>2024-05-22</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.90</priority>
+   </url>
+   <url>
+      <loc>https://gupi24.vercel.app/articles/hidden-gems-timur.html</loc>
+      <lastmod>2024-05-22</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.90</priority>
+   </url>
+   <url>
+      <loc>https://gupi24.vercel.app/articles/timnas-piala-dunia.html</loc>
+      <lastmod>2024-05-22</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.90</priority>
+   </url>
+   <url>
+      <loc>https://gupi24.vercel.app/articles/evolusi-nomor-10.html</loc>
+      <lastmod>2024-05-22</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.90</priority>
+   </url>
+   <url>
+      <loc>https://gupi24.vercel.app/articles/jakarta-tenggelam.html</loc>
+      <lastmod>2024-05-22</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.90</priority>
+   </url>
+   <url>
+      <loc>https://gupi24.vercel.app/articles/ai-vs-art.html</loc>
+      <lastmod>2024-05-22</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.90</priority>
+   </url>
+
+</urlset>
