@@ -7,143 +7,58 @@
     <meta name="author" content="GUPI24">
     <meta name="robots" content="index, follow">
     
-    <!-- --- KODE ADSENSE (Wajib untuk Verifikasi) --- -->
+    <!-- --- KODE ADSENSE --- -->
     <meta name="google-adsense-account" content="ca-pub-6265573430839351">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6265573430839351" crossorigin="anonymous"></script>
-    <!-- -------------------------------------------- -->
-
+    
     <title>GUPI24 - Home Blog</title>
     
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
 
     <style>
-        /* --- CSS VARIABLES & RESET --- */
-        :root {
-            --bg-dark: #0f0f12;
-            --card-bg: #1a1a20;
-            --accent: #00d2ff;
-            --text-main: #e0e0e0;
-            --text-muted: #a0a0a0;
-            --border: #333;
-        }
-
+        /* --- STYLES (Sama seperti sebelumnya) --- */
+        :root { --bg-dark: #0f0f12; --card-bg: #1a1a20; --accent: #00d2ff; --text-main: #e0e0e0; --text-muted: #a0a0a0; --border: #333; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background-color: var(--bg-dark); color: var(--text-main); font-family: 'Merriweather', serif; line-height: 1.6; }
 
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            font-family: 'Merriweather', serif;
-            line-height: 1.6;
-        }
-
-        /* --- HEADER & NAVIGATION --- */
-        header {
-            background: var(--card-bg);
-            border-bottom: 1px solid var(--border);
-            padding: 1rem 0;
-            position: sticky; top: 0; z-index: 1000;
-        }
-        .container {
-            max-width: 1100px; margin: 0 auto; padding: 0 20px;
-        }
-        .nav-flex {
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .brand {
-            font-family: 'Rajdhani', sans-serif; font-size: 1.8rem; font-weight: 700; color: white; text-decoration: none; letter-spacing: 2px;
-        }
-        .nav-links a {
-            color: var(--text-muted); text-decoration: none; margin-left: 20px; 
-            font-family: 'Rajdhani', sans-serif; font-weight: 700; text-transform: uppercase; font-size: 0.9rem;
-            transition: color 0.3s;
-        }
+        header { background: var(--card-bg); border-bottom: 1px solid var(--border); padding: 1rem 0; position: sticky; top: 0; z-index: 1000; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        .nav-flex { display: flex; justify-content: space-between; align-items: center; }
+        .brand { font-family: 'Rajdhani', sans-serif; font-size: 1.8rem; font-weight: 700; color: white; text-decoration: none; letter-spacing: 2px; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; margin-left: 20px; font-family: 'Rajdhani', sans-serif; font-weight: 700; text-transform: uppercase; font-size: 0.9rem; transition: color 0.3s;}
         .nav-links a:hover { color: var(--accent); }
-        .nav-links .active { color: var(--accent); }
 
-        /* --- LAYOUT GRID --- */
-        .main-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr; /* 2 bagian konten, 1 bagian sidebar */
-            gap: 40px;
-            margin-top: 40px;
-            margin-bottom: 60px;
-        }
+        .main-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; margin-top: 40px; margin-bottom: 60px; }
 
-        /* --- BLOG CARDS --- */
-        .blog-post {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            padding: 30px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            transition: transform 0.2s, border-color 0.2s;
-        }
+        /* Dynamic Post Styling */
+        .blog-post { background: var(--card-bg); border: 1px solid var(--border); padding: 30px; border-radius: 8px; margin-bottom: 30px; transition: transform 0.2s, border-color 0.2s; animation: fadeIn 0.5s ease-in; }
         .blog-post:hover { transform: translateY(-5px); border-color: var(--accent); }
-        
-        .cat-tag {
-            background: rgba(0, 210, 255, 0.1); color: var(--accent);
-            padding: 5px 10px; font-size: 0.75rem; font-family: 'Rajdhani', sans-serif;
-            text-transform: uppercase; letter-spacing: 1px; border-radius: 4px;
-        }
-
-        h2.post-title {
-            margin: 15px 0; font-family: 'Rajdhani', sans-serif; font-size: 2rem; line-height: 1.2;
-        }
+        .cat-tag { background: rgba(0, 210, 255, 0.1); color: var(--accent); padding: 5px 10px; font-size: 0.75rem; font-family: 'Rajdhani', sans-serif; text-transform: uppercase; letter-spacing: 1px; border-radius: 4px; }
+        h2.post-title { margin: 15px 0; font-family: 'Rajdhani', sans-serif; font-size: 2rem; line-height: 1.2; }
         h2.post-title a { color: white; text-decoration: none; transition: color 0.3s; }
         h2.post-title a:hover { color: var(--accent); }
-        
         .excerpt { color: #ccc; margin-bottom: 20px; font-size: 1rem; }
-        
-        .read-more {
-            display: inline-block; text-decoration: none; color: var(--bg-dark);
-            background: var(--accent); padding: 8px 20px; border-radius: 4px;
-            font-family: 'Rajdhani', sans-serif; font-weight: 700;
-            transition: background 0.3s;
-        }
+        .read-more { display: inline-block; text-decoration: none; color: var(--bg-dark); background: var(--accent); padding: 8px 20px; border-radius: 4px; font-family: 'Rajdhani', sans-serif; font-weight: 700; transition: background 0.3s; }
         .read-more:hover { background: white; }
 
-        /* --- SIDEBAR --- */
-        .sidebar-widget {
-            background: var(--card-bg); border: 1px solid var(--border);
-            padding: 25px; border-radius: 8px; margin-bottom: 30px;
-        }
-        .widget-title {
-            font-family: 'Rajdhani', sans-serif; color: white;
-            border-bottom: 2px solid var(--accent); padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-        .yt-btn {
-            display: block; width: 100%; text-align: center;
-            background: #ff0000; color: white; padding: 12px;
-            text-decoration: none; font-weight: bold; border-radius: 4px;
-            font-family: sans-serif; margin-bottom: 10px;
-            transition: opacity 0.3s;
-        }
-        .yt-btn:hover { opacity: 0.8; }
-        
+        /* Sidebar & Footer */
+        .sidebar-widget { background: var(--card-bg); border: 1px solid var(--border); padding: 25px; border-radius: 8px; margin-bottom: 30px; }
+        .widget-title { font-family: 'Rajdhani', sans-serif; color: white; border-bottom: 2px solid var(--accent); padding-bottom: 10px; margin-bottom: 20px; }
+        .yt-btn { display: block; width: 100%; text-align: center; background: #ff0000; color: white; padding: 12px; text-decoration: none; font-weight: bold; border-radius: 4px; font-family: sans-serif; margin-bottom: 10px; transition: opacity 0.3s; }
         .sidebar-links li { list-style: none; margin-bottom: 10px; border-bottom: 1px solid #333; padding-bottom: 10px; }
         .sidebar-links a { color: var(--text-muted); text-decoration: none; transition: color 0.3s; }
         .sidebar-links a:hover { color: var(--accent); }
 
-        /* --- FOOTER --- */
-        footer {
-            background: #000; padding: 40px 0; text-align: center; border-top: 1px solid #222;
-        }
-        .footer-nav { margin-bottom: 20px; }
-        .footer-nav a { color: #666; margin: 0 10px; text-decoration: none; font-size: 0.9rem; transition: color 0.3s; }
+        footer { background: #000; padding: 40px 0; text-align: center; border-top: 1px solid #222; }
+        .footer-nav a { color: #666; margin: 0 10px; text-decoration: none; font-size: 0.9rem; transition: color 0.3s;}
         .footer-nav a:hover { color: var(--accent); }
-        .footer-legal a { font-size: 0.8rem; color: #444; margin: 0 8px; text-decoration: none; }
-        .footer-legal a:hover { color: #888; text-decoration: underline; }
 
-        /* --- RESPONSIVE --- */
-        @media(max-width: 768px) {
-            .main-grid { grid-template-columns: 1fr; }
-            .nav-links { display: none; } /* Untuk simple mobile view */
-            .nav-flex { justify-content: center; }
-            h2.post-title { font-size: 1.5rem; }
-        }
+        /* Loading Animation */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        #loading-msg { text-align: center; color: var(--accent); font-family: 'Rajdhani', sans-serif; margin-top: 20px; }
+
+        @media(max-width: 768px) { .main-grid { grid-template-columns: 1fr; } .nav-links { display: none; } }
     </style>
 </head>
 <body>
@@ -153,16 +68,11 @@
         <div class="container nav-flex">
             <a href="index.html" class="brand">GUPI24</a>
             <nav class="nav-links">
-                <a href="index.html" class="active">Home</a>
-                <!-- Link Menu Utama -->
+                <a href="index.html">Home</a>
                 <a href="https://gupi24.vercel.app/news.html">News</a>
                 <a href="https://gupi24.vercel.app/asia.html">Asia</a>
-                
-                <!-- Link Halaman Pendukung (Penting buat AdSense) -->
                 <a href="about.html">About</a>
                 <a href="contact.html">Contact</a>
-                
-                <!-- Link External -->
                 <a href="https://www.youtube.com/@gupi24channel64" target="_blank" style="color: #ff0000;">YouTube</a>
             </nav>
         </div>
@@ -171,31 +81,12 @@
     <!-- CONTENT AREA -->
     <div class="container main-grid">
         
-        <!-- KOLOM KIRI: ARTIKEL -->
+        <!-- KOLOM KIRI: DYNAMIC CONTENT -->
         <main>
-            <!-- Artikel 1 -->
-            <article class="blog-post">
-                <span class="cat-tag">Sports Analysis</span>
-                <h2 class="post-title"><a href="https://gupi24.vercel.app/news.html">Revolusi Data xG dalam Sepak Bola Modern</a></h2>
-                <p class="excerpt">Analisis mendalam mengenai bagaimana Expected Goals (xG) mengubah cara pelatih Liga Eropa meracik strategi dan scouting pemain. Data bukan lagi sekadar angka.</p>
-                <a href="https://gupi24.vercel.app/news.html" class="read-more">Baca Selengkapnya</a>
-            </article>
-
-            <!-- Artikel 2 -->
-            <article class="blog-post">
-                <span class="cat-tag">Disaster Tech</span>
-                <h2 class="post-title"><a href="https://gupi24.vercel.app/news.html">Teknologi Deteksi Dini Gempa di Cincin Api</a></h2>
-                <p class="excerpt">Indonesia berada di pertemuan lempeng. Bagaimana IoT dan sensor bawah laut membantu mitigasi bencana lebih cepat dari sebelumnya?</p>
-                <a href="https://gupi24.vercel.app/news.html" class="read-more">Baca Selengkapnya</a>
-            </article>
-
-            <!-- Artikel 3 -->
-            <article class="blog-post">
-                <span class="cat-tag">Eco Travel</span>
-                <h2 class="post-title"><a href="https://gupi24.vercel.app/asia.html">Hidden Gems: Surga Tersembunyi Indonesia Timur</a></h2>
-                <p class="excerpt">Menjelajahi potensi ecotourism dari Sumba hingga Kepulauan Kei. Pariwisata berkelanjutan untuk masa depan ekonomi lokal.</p>
-                <a href="https://gupi24.vercel.app/asia.html" class="read-more">Baca Selengkapnya</a>
-            </article>
+            <!-- Wadah Artikel (Kosong, akan diisi Javascript) -->
+            <div id="article-list">
+                <div id="loading-msg">Memuat Berita Terbaru...</div>
+            </div>
 
             <!-- Paginasi Simpel -->
             <div style="margin-top: 40px; text-align: center;">
@@ -206,7 +97,6 @@
 
         <!-- KOLOM KANAN: SIDEBAR -->
         <aside>
-            <!-- Widget About (Link ke about.html) -->
             <div class="sidebar-widget">
                 <h3 class="widget-title">About GUPI24</h3>
                 <p style="color: #ccc; font-size: 0.9rem; margin-bottom: 15px;">
@@ -215,14 +105,11 @@
                 <a href="about.html" style="color: var(--accent); font-family: 'Rajdhani'; font-weight: 700; text-decoration: none;">Lihat Profil Lengkap &rarr;</a>
             </div>
 
-            <!-- Widget YouTube -->
             <div class="sidebar-widget">
                 <h3 class="widget-title">Subscribe</h3>
                 <a href="https://www.youtube.com/@gupi24channel64" class="yt-btn" target="_blank">YouTube Channel</a>
-                <p style="font-size:0.8rem; color:#888; text-align:center;">Dapatkan update video terbaru.</p>
             </div>
 
-            <!-- Widget Categories -->
             <div class="sidebar-widget">
                 <h3 class="widget-title">Kategori</h3>
                 <ul class="sidebar-links">
@@ -238,25 +125,62 @@
     <!-- FOOTER -->
     <footer>
         <div class="container">
-            <!-- Navigasi Footer Utama -->
             <div class="footer-nav">
                 <a href="index.html">Home</a>
                 <a href="about.html">About Us</a>
                 <a href="contact.html">Contact</a>
             </div>
             
-            <!-- Link Legal (Sangat Penting untuk AdSense) -->
-            <div class="footer-legal" style="margin-bottom: 20px;">
-                <a href="privacy-policy.html">Privacy Policy</a>
-                <span style="color:#333">|</span>
-                <a href="terms.html">Terms of Service</a>
-                <span style="color:#333">|</span>
-                <a href="https://gupi24.vercel.app/disclaimer.html">Disclaimer</a>
+            <div class="footer-legal" style="margin-bottom: 20px; font-size:0.8rem;">
+                <a href="privacy-policy.html" style="color:#666; text-decoration:none;">Privacy Policy</a> | 
+                <a href="terms.html" style="color:#666; text-decoration:none;">Terms of Service</a>
             </div>
 
             <p style="color: #444; font-size: 0.8rem;">&copy; 2024 GUPI24. All Rights Reserved.</p>
         </div>
     </footer>
+
+    <!-- SCRIPT OTOMATIS LOAD BERITA -->
+    <script>
+        // Fungsi untuk mengambil data dari news.json
+        async function loadNews() {
+            try {
+                // Mengambil file json
+                const response = await fetch('news.json');
+                if (!response.ok) {
+                    throw new Error('Gagal mengambil data berita');
+                }
+                const articles = await response.json();
+
+                // Mendapatkan wadah artikel
+                const container = document.getElementById('article-list');
+                
+                // Hapus pesan loading
+                container.innerHTML = '';
+
+                // Loop setiap artikel dari JSON dan buat HTML-nya
+                articles.forEach(article => {
+                    const articleHTML = `
+                        <article class="blog-post">
+                            <span class="cat-tag">${article.category}</span>
+                            <h2 class="post-title"><a href="${article.url}">${article.title}</a></h2>
+                            <p class="excerpt">${article.excerpt}</p>
+                            <a href="${article.url}" class="read-more">Baca Selengkapnya</a>
+                        </article>
+                    `;
+                    // Masukkan ke dalam container (tambah ke bawah)
+                    container.innerHTML += articleHTML;
+                });
+
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('article-list').innerHTML = '<p style="color:red; text-align:center;">Gagal memuat berita terbaru. Silakan refresh halaman.</p>';
+            }
+        }
+
+        // Jalankan fungsi saat halaman selesai loading
+        document.addEventListener('DOMContentLoaded', loadNews);
+    </script>
 
 </body>
 </html>
