@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /news.json
+
+Sitemap: https://gupi24.vercel.app/sitemap.xml
