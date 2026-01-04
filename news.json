@@ -46,5 +46,65 @@
     "category": "Investigasi",
     "url": "https://gupi24.vercel.app/articles/afc-kontroversi.html",
     "excerpt": "Investigasi mendalam mengenai perubahan drastis AFC, dominasi Asia Barat, format ACLE, hingga kontroversi wasit yang merugikan timnas."
+  },
+  {
+    "title": "J-League vs Eropa: Mengapa Sepak Bola Jepang Lebih Terstruktur dari Premier League?",
+    "category": "Sports Analysis",
+    "url": "https://gupi24.vercel.app/articles/analisis-jleague.html",
+    "excerpt": "Analisis data tracking menunjukkan bahwa struktur posisi J-League lebih rapi daripada liga Eropa. Apa rahasia disiplin taktik Samurai Biru?"
+  },
+  {
+    "title": "Revolusi Langit: Starlink dan Tantangan Internet di Kepulauan Nusantara",
+    "category": "Tech Infrastructure",
+    "url": "https://gupi24.vercel.app/articles/starlink-indonesia.html",
+    "excerpt": "Fiber optik sulit menembus 17.000 pulau. Apakah satelit LEO (Low Earth Orbit) adalah penyelamat ekonomi digital desa terpencil?"
+  },
+  {
+    "title": "Blue Carbon: Mengapa Raja Ampat Lebih Berharga Hidup daripada Mati?",
+    "category": "Eco Travel",
+    "url": "https://gupi24.vercel.app/articles/raja-ampat-konservasi.html",
+    "excerpt": "Menghitung nilai ekonomi karbon dari lamun dan bakau di Papua. Ekowisata bukan sekadar jalan-jalan, tapi investasi iklim."
+  },
+  {
+    "title": "Game Theory dalam Adu Penalti: Psikologi dan Matematika di Titik Putih",
+    "category": "Sports Science",
+    "url": "https://gupi24.vercel.app/articles/psikologi-penalti.html",
+    "excerpt": "Mengapa kiper sering melompat ke arah yang salah? Membedah Nash Equilibrium dan tekanan mental saat adu penalti penentu."
+  },
+  {
+    "title": "Harta Karun Cincin Api: Potensi Geothermal Indonesia yang Tertidur",
+    "category": "Enviro Tech",
+    "url": "https://gupi24.vercel.app/articles/energi-panas-bumi.html",
+    "excerpt": "Indonesia memegang 40% cadangan panas bumi dunia. Mengapa kita masih membakar batubara? Analisis hambatan teknologi dan investasi."
+  },
+  {
+    "title": "Ekonomi Esports: Dari Warnet Kumuh Menjadi Industri Miliaran Dolar",
+    "category": "Future Tech",
+    "url": "https://gupi24.vercel.app/articles/esports-ekonomi.html",
+    "excerpt": "Membedah ekosistem bisnis Mobile Legends dan PUBG. Bagaimana 'Pro Player' menjadi profesi baru yang menjanjikan bagi Gen-Z?"
+  },
+  {
+    "title": "Matematika Fraktal di Candi Borobudur: Kejeniusan Arsitektur Kuno",
+    "category": "Travel & History",
+    "url": "https://gupi24.vercel.app/articles/borobudur-matematika.html",
+    "excerpt": "Borobudur bukan sekadar tumpukan batu. Ia adalah representasi geometri fraktal yang mendahului matematika modern ribuan tahun."
+  },
+  {
+    "title": "Pertanian 4.0: Sensor IoT Menggantikan Orang-orangan Sawah",
+    "category": "Agri Tech",
+    "url": "https://gupi24.vercel.app/articles/pertanian-iot.html",
+    "excerpt": "Bagaimana petani milenial menggunakan drone dan sensor kelembaban tanah untuk meningkatkan hasil panen di tengah perubahan iklim."
+  },
+  {
+    "title": "Paradoks Mobil Listrik: Apakah Benar-Benar 'Hijau' Jika Listriknya dari Batubara?",
+    "category": "Auto Tech",
+    "url": "https://gupi24.vercel.app/articles/mobil-listrik-polusi.html",
+    "excerpt": "Analisis emisi 'Well-to-Wheel' kendaraan EV di Indonesia. Membongkar mitos emisi nol dalam ekosistem energi fosil."
+  },
+  {
+    "title": "Gen Z dan Krisis Kesehatan Mental di Era Algoritma Media Sosial",
+    "category": "Social Analysis",
+    "url": "https://gupi24.vercel.app/articles/gen-z-mental-health.html",
+    "excerpt": "Data menunjukkan korelasi antara scrolling TikTok dan tingkat kecemasan. Bagaimana dopamin digital merusak fokus generasi muda?"
   }
 ]
