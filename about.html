@@ -3,171 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Tentang GUPI24 Channel - Misi, visi, dan tim di balik analisis data sepak bola, teknologi mitigasi bencana, dan pariwisata Indonesia.">
-    <meta name="author" content="GUPI24">
+    <meta name="description" content="Tentang GUPI24 - Misi kami dalam analisis data olahraga dan teknologi.">
     <meta name="robots" content="index, follow">
     
     <!-- --- KODE ADSENSE --- -->
     <meta name="google-adsense-account" content="ca-pub-6265573430839351">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6265573430839351" crossorigin="anonymous"></script>
-    <!-- -------------------- -->
-
-    <title>GUPI24 - Tentang Kami</title>
+    
+    <title>About Us - GUPI24</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
 
+    <!-- Menggunakan Style yang sama persis agar konsisten -->
     <style>
-        :root {
-            --bg-dark: #0f0f12;
-            --card-bg: #1a1a20;
-            --accent: #00d2ff;
-            --text-main: #e0e0e0;
-            --text-muted: #a0a0a0;
-            --border: #333;
-        }
-
+        :root { --bg-dark: #0f0f12; --card-bg: #1a1a20; --accent: #00d2ff; --text-main: #e0e0e0; --text-muted: #a0a0a0; --border: #333; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            font-family: 'Merriweather', serif;
-            line-height: 1.6;
-        }
-
-        /* --- HEADER --- */
-        header {
-            background: var(--card-bg);
-            border-bottom: 1px solid var(--border);
-            padding: 1rem 0;
-            position: sticky; top: 0; z-index: 1000;
-        }
-        .container {
-            max-width: 1100px; margin: 0 auto; padding: 0 20px;
-        }
-        .nav-flex {
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .brand {
-            font-family: 'Rajdhani', sans-serif; font-size: 1.8rem; font-weight: 700; color: white; text-decoration: none; letter-spacing: 2px;
-        }
-        .nav-links a {
-            color: var(--text-muted); text-decoration: none; margin-left: 20px; font-family: 'Rajdhani', sans-serif; font-weight: 700; text-transform: uppercase; font-size: 0.9rem;
-        }
+        body { background-color: var(--bg-dark); color: var(--text-main); font-family: 'Merriweather', serif; line-height: 1.6; }
+        
+        /* HEADER & FOOTER SAMA */
+        header { background: var(--card-bg); border-bottom: 1px solid var(--border); padding: 1rem 0; position: sticky; top: 0; z-index: 1000; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        .nav-flex { display: flex; justify-content: space-between; align-items: center; }
+        .brand { font-family: 'Rajdhani', sans-serif; font-size: 1.8rem; font-weight: 700; color: white; text-decoration: none; letter-spacing: 2px; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; margin-left: 20px; font-family: 'Rajdhani', sans-serif; font-weight: 700; text-transform: uppercase; font-size: 0.9rem; }
         .nav-links a:hover { color: var(--accent); }
+        
+        /* CONTENT SPECIFIC */
+        .page-content { background: var(--card-bg); border: 1px solid var(--border); padding: 40px; border-radius: 8px; margin: 40px 0; }
+        h1.page-title { font-family: 'Rajdhani', sans-serif; font-size: 2.5rem; margin-bottom: 20px; border-bottom: 2px solid var(--accent); display: inline-block; }
+        h3 { font-family: 'Rajdhani', sans-serif; color: white; margin-top: 20px; margin-bottom: 10px; }
+        p { margin-bottom: 15px; color: #ccc; }
+        
+        .cta-button { display: inline-block; background: var(--accent); color: var(--bg-dark); padding: 10px 25px; text-decoration: none; font-family: 'Rajdhani', sans-serif; font-weight: 700; border-radius: 4px; margin-top: 20px; }
+        .cta-button:hover { background: white; }
 
-        /* --- CONTENT PAGE --- */
-        .content-page {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            padding: 40px;
-            border-radius: 8px;
-            margin: 40px auto 60px auto;
-            max-width: 800px; /* Lebar konten khusus halaman */
-        }
-        .content-page h1 {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 2.5rem;
-            color: var(--accent);
-            margin-bottom: 25px;
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 15px;
-        }
-        .content-page h2 {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.8rem;
-            color: white;
-            margin-top: 30px;
-            margin-bottom: 15px;
-        }
-        .content-page p {
-            margin-bottom: 15px;
-            color: var(--text-main);
-        }
-        .content-page ul {
-            list-style: disc;
-            margin-left: 25px;
-            margin-bottom: 15px;
-            color: var(--text-main);
-        }
-        .content-page li {
-            margin-bottom: 8px;
-        }
-        .content-page a {
-            color: var(--accent);
-            text-decoration: none;
-        }
-        .content-page a:hover {
-            text-decoration: underline;
-        }
-
-        /* --- FOOTER --- */
-        footer {
-            background: #000; padding: 40px 0; text-align: center; border-top: 1px solid #222;
-        }
+        footer { background: #000; padding: 40px 0; text-align: center; border-top: 1px solid #222; margin-top: auto; }
         .footer-nav a { color: #666; margin: 0 10px; text-decoration: none; font-size: 0.9rem; }
         .footer-nav a:hover { color: white; }
-
-        /* --- RESPONSIVE --- */
-        @media(max-width: 768px) {
-            .nav-links { display: none; } /* Bisa diganti hamburger menu kalau mau kompleks */
-            .content-page { padding: 20px; margin: 20px auto 40px auto; }
-            .content-page h1 { font-size: 2rem; }
-            .content-page h2 { font-size: 1.5rem; }
-        }
     </style>
 </head>
 <body>
 
-    <!-- HEADER -->
     <header>
         <div class="container nav-flex">
-            <a href="index.html" class="brand">GUPI24</a>
+            <a href="https://gupi24.vercel.app/index.html" class="brand">GUPI24</a>
             <nav class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
-                <a href="privacy-policy.html">Privacy Policy</a>
-                <a href="terms.html">Terms of Service</a>
-                <a href="https://www.youtube.com/@gupi24channel64" target="_blank">YouTube Channel</a>
+                <a href="https://gupi24.vercel.app/index.html">Home</a>
+                <a href="https://gupi24.vercel.app/news.html">News</a>
+                <a href="https://gupi24.vercel.app/asia.html">Asia</a>
+                <a href="https://www.youtube.com/@gupi24channel64" target="_blank">YouTube</a>
             </nav>
         </div>
     </header>
 
-    <!-- CONTENT AREA -->
     <div class="container">
-        <main class="content-page">
-            <h1>Tentang Kami</h1>
-            <p>Selamat datang di GUPI24 Channel, portal analisis data terdepan yang berdedikasi untuk menyajikan informasi mendalam dan visualisasi menarik dalam tiga bidang utama: <strong>Analisis Data Sepak Bola</strong>, <strong>Teknologi Mitigasi Bencana</strong>, dan <strong>Pariwisata Indonesia</strong>.</p>
-
-            <h2>Visi Kami</h2>
-            <p>Menjadi sumber informasi yang kredibel dan inspiratif yang menjembatani data kompleks dengan pemahaman publik, mendorong inovasi, dan mempromosikan keindahan serta ketahanan Indonesia.</p>
-
-            <h2>Misi Kami</h2>
-            <ul>
-                <li><strong>Analisis Sepak Bola:</strong> Menyediakan insight berbasis data mengenai performa tim, strategi, dan tren pemain menggunakan metrik canggih seperti Expected Goals (xG) dan statistik lainnya.</li>
-                <li><strong>Mitigasi Bencana:</strong> Mengulas perkembangan terbaru dalam teknologi deteksi dini, sistem peringatan, dan strategi kesiapsiagaan bencana, khususnya di wilayah Cincin Api Pasifik.</li>
-                <li><strong>Pariwisata Indonesia:</strong> Mempromosikan destinasi wisata tersembunyi dan potensi ecotourism Indonesia, dengan fokus pada pariwisata berkelanjutan dan pemberdayaan masyarakat lokal.</li>
+        <main class="page-content">
+            <h1 class="page-title">Tentang GUPI24</h1>
+            
+            <p>Selamat datang di <strong>GUPI24</strong>, portal independen yang didedikasikan untuk menyajikan analisis mendalam mengenai tiga pilar utama: Analisis Data Olahraga, Teknologi Mitigasi Bencana, dan Pariwisata Nusantara.</p>
+            
+            <h3>Misi Kami</h3>
+            <p>Di era informasi yang begitu cepat, GUPI24 hadir untuk memperlambat arus dengan memberikan konteks. Kami tidak hanya memberitakan "apa" yang terjadi, tetapi "mengapa" dan "bagaimana" itu terjadi melalui pendekatan berbasis data.</p>
+            
+            <h3>Apa yang Kami Bahas?</h3>
+            <ul style="margin-left: 20px; color: #ccc; margin-bottom: 20px;">
+                <li><strong>Sports Analytics:</strong> Membedah sepak bola modern menggunakan metrik xG, Heatmap, dan tactical breakdown.</li>
+                <li><strong>Disaster Tech:</strong> Edukasi mengenai mitigasi bencana di wilayah Cincin Api menggunakan teknologi sensor dan IoT.</li>
+                <li><strong>Eco Travel:</strong> Menjelajahi keindahan Indonesia dengan prinsip keberlanjutan.</li>
             </ul>
 
-            <h2>Tim Kami</h2>
-            <p>Kami adalah tim individu yang bersemangat dengan latar belakang beragam mulai dari ilmu data, jurnalisme, geologi, hingga pariwisata. Kami percaya pada kekuatan data untuk menceritakan kisah yang kuat dan relevan.</p>
-            <p>Terima kasih telah bergabung dengan kami di GUPI24!</p>
-            <p>Untuk pertanyaan lebih lanjut, kunjungi halaman <a href="contact.html">Kontak Kami</a>.</p>
+            <p>Kami percaya bahwa data dapat menceritakan kisah yang lebih jujur.</p>
+
+            <!-- Tombol Mengarah ke Contact sesuai request -->
+            <a href="https://gupi24.vercel.app/contact.html" class="cta-button">Hubungi Tim Kami</a>
         </main>
     </div>
 
-    <!-- FOOTER -->
     <footer>
         <div class="container">
             <div class="footer-nav">
-                <a href="index.html">Home</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
-                <a href="privacy-policy.html">Privacy Policy</a>
-                <a href="terms.html">Terms of Service</a>
-                <a href="https://www.youtube.com/@gupi24channel64" target="_blank">YouTube Channel</a>
+                <a href="https://gupi24.vercel.app/index.html">Home</a>
+                <a href="https://gupi24.vercel.app/privacy-policy.html">Privacy Policy</a>
+                <a href="https://gupi24.vercel.app/terms.html">Terms of Service</a>
+                <a href="https://gupi24.vercel.app/contact.html">Contact</a>
             </div>
             <p style="margin-top: 20px; color: #444; font-size: 0.8rem;">&copy; 2024 GUPI24. All Rights Reserved.</p>
         </div>
