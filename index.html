@@ -31,6 +31,11 @@
 
         .main-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; margin-top: 40px; margin-bottom: 60px; }
 
+        /* Search Box Styling (BARU) */
+        .search-container { margin-bottom: 30px; }
+        .search-input { width: 100%; padding: 12px; background: var(--card-bg); border: 1px solid var(--border); color: white; border-radius: 4px; font-family: 'Rajdhani', sans-serif; font-size: 1rem; }
+        .search-input:focus { outline: none; border-color: var(--accent); }
+
         /* Dynamic Post Styling */
         .blog-post { background: var(--card-bg); border: 1px solid var(--border); padding: 30px; border-radius: 8px; margin-bottom: 30px; transition: transform 0.2s, border-color 0.2s; animation: fadeIn 0.5s ease-in; }
         .blog-post:hover { transform: translateY(-5px); border-color: var(--accent); }
@@ -41,6 +46,12 @@
         .excerpt { color: #ccc; margin-bottom: 20px; font-size: 1rem; }
         .read-more { display: inline-block; text-decoration: none; color: var(--bg-dark); background: var(--accent); padding: 8px 20px; border-radius: 4px; font-family: 'Rajdhani', sans-serif; font-weight: 700; transition: background 0.3s; }
         .read-more:hover { background: white; }
+
+        /* Pagination Styling (UPDATED) */
+        .pagination-container { margin-top: 40px; text-align: center; display: flex; justify-content: center; gap: 10px; }
+        .page-btn { cursor: pointer; color: white; text-decoration: none; border: 1px solid #333; padding: 10px 20px; border-radius: 4px; background: var(--card-bg); font-family: 'Rajdhani', sans-serif; transition: 0.3s; user-select: none; }
+        .page-btn:hover:not(.disabled) { border-color: var(--accent); color: var(--accent); }
+        .page-btn.disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; border-color: #333; }
 
         /* Sidebar & Footer */
         .sidebar-widget { background: var(--card-bg); border: 1px solid var(--border); padding: 25px; border-radius: 8px; margin-bottom: 30px; }
@@ -83,15 +94,21 @@
         
         <!-- KOLOM KIRI: DYNAMIC CONTENT -->
         <main>
+            <!-- Fitur Search -->
+            <div class="search-container">
+                <input type="text" id="searchInput" class="search-input" placeholder="Cari artikel atau berita...">
+            </div>
+
             <!-- Wadah Artikel (Kosong, akan diisi Javascript) -->
             <div id="article-list">
                 <div id="loading-msg">Memuat Berita Terbaru...</div>
             </div>
 
-            <!-- Paginasi Simpel -->
-            <div style="margin-top: 40px; text-align: center;">
-                <a href="#" style="color: white; text-decoration: none; border: 1px solid #333; padding: 10px 20px; border-radius: 4px;">&larr; Previous</a>
-                <a href="#" style="color: white; text-decoration: none; border: 1px solid #333; padding: 10px 20px; margin-left: 10px; border-radius: 4px;">Next &rarr;</a>
+            <!-- Paginasi Berfungsi -->
+            <div class="pagination-container" id="pagination-wrapper" style="display:none;">
+                <a id="btn-prev" class="page-btn">&larr; Previous</a>
+                <span id="page-indicator" style="align-self: center; font-family: 'Rajdhani'; color: #666; font-size: 0.9rem;">Page 1</span>
+                <a id="btn-next" class="page-btn">Next &rarr;</a>
             </div>
         </main>
 
@@ -140,45 +157,130 @@
         </div>
     </footer>
 
-    <!-- SCRIPT OTOMATIS LOAD BERITA -->
+    <!-- SCRIPT FULL LOGIC -->
     <script>
-        // Fungsi untuk mengambil data dari news.json
+        // Variabel Global
+        let allArticles = [];      // Menyimpan semua data dari JSON
+        let filteredArticles = []; // Menyimpan data setelah difilter search
+        let currentPage = 1;       // Halaman saat ini
+        const itemsPerPage = 4;    // Jumlah berita per halaman (Bisa diubah jadi 3 atau 4)
+
+        // Referensi Elemen DOM
+        const articleList = document.getElementById('article-list');
+        const searchInput = document.getElementById('searchInput');
+        const paginationWrapper = document.getElementById('pagination-wrapper');
+        const btnPrev = document.getElementById('btn-prev');
+        const btnNext = document.getElementById('btn-next');
+        const pageIndicator = document.getElementById('page-indicator');
+
+        // Fungsi Utama: Mengambil data
         async function loadNews() {
             try {
-                // Mengambil file json
                 const response = await fetch('news.json');
-                if (!response.ok) {
-                    throw new Error('Gagal mengambil data berita');
-                }
-                const articles = await response.json();
-
-                // Mendapatkan wadah artikel
-                const container = document.getElementById('article-list');
+                if (!response.ok) throw new Error('Gagal mengambil data berita');
                 
-                // Hapus pesan loading
-                container.innerHTML = '';
+                allArticles = await response.json();
+                filteredArticles = allArticles; // Awal load, semua artikel ditampilkan
 
-                // Loop setiap artikel dari JSON dan buat HTML-nya
-                articles.forEach(article => {
-                    const articleHTML = `
-                        <article class="blog-post">
-                            <span class="cat-tag">${article.category}</span>
-                            <h2 class="post-title"><a href="${article.url}">${article.title}</a></h2>
-                            <p class="excerpt">${article.excerpt}</p>
-                            <a href="${article.url}" class="read-more">Baca Selengkapnya</a>
-                        </article>
-                    `;
-                    // Masukkan ke dalam container (tambah ke bawah)
-                    container.innerHTML += articleHTML;
-                });
-
+                renderPage(); // Tampilkan halaman pertama
             } catch (error) {
                 console.error('Error:', error);
-                document.getElementById('article-list').innerHTML = '<p style="color:red; text-align:center;">Gagal memuat berita terbaru. Silakan refresh halaman.</p>';
+                articleList.innerHTML = '<p style="color:red; text-align:center;">Gagal memuat berita. Pastikan file news.json tersedia.</p>';
             }
         }
 
-        // Jalankan fungsi saat halaman selesai loading
+        // Fungsi Menampilkan Artikel berdasarkan Halaman & Search
+        function renderPage() {
+            // Bersihkan container
+            articleList.innerHTML = '';
+
+            // Jika hasil pencarian kosong
+            if (filteredArticles.length === 0) {
+                articleList.innerHTML = '<p style="text-align:center; color:#888;">Tidak ada berita yang ditemukan.</p>';
+                paginationWrapper.style.display = 'none';
+                return;
+            }
+
+            // Hitung Index Slice (Logika Pagination)
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const paginatedItems = filteredArticles.slice(startIndex, endIndex);
+
+            // Render Item
+            paginatedItems.forEach(article => {
+                const articleHTML = `
+                    <article class="blog-post">
+                        <span class="cat-tag">${article.category}</span>
+                        <h2 class="post-title"><a href="${article.url}">${article.title}</a></h2>
+                        <p class="excerpt">${article.excerpt}</p>
+                        <a href="${article.url}" class="read-more">Baca Selengkapnya</a>
+                    </article>
+                `;
+                articleList.innerHTML += articleHTML;
+            });
+
+            // Update Tombol Pagination
+            updatePaginationUI(startIndex, endIndex);
+        }
+
+        // Fungsi Mengatur Tombol Previous/Next
+        function updatePaginationUI(startIndex, endIndex) {
+            paginationWrapper.style.display = 'flex'; // Tampilkan tombol
+            
+            // Total Halaman
+            const totalPages = Math.ceil(filteredArticles.length / itemsPerPage);
+            pageIndicator.innerText = `Page ${currentPage} of ${totalPages}`;
+
+            // Cek tombol Previous
+            if (currentPage === 1) {
+                btnPrev.classList.add('disabled');
+            } else {
+                btnPrev.classList.remove('disabled');
+            }
+
+            // Cek tombol Next
+            if (currentPage >= totalPages) {
+                btnNext.classList.add('disabled');
+            } else {
+                btnNext.classList.remove('disabled');
+            }
+        }
+
+        // Event Listener: Klik Previous
+        btnPrev.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderPage();
+                window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll ke atas
+            }
+        });
+
+        // Event Listener: Klik Next
+        btnNext.addEventListener('click', () => {
+            const totalPages = Math.ceil(filteredArticles.length / itemsPerPage);
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderPage();
+                window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll ke atas
+            }
+        });
+
+        // Event Listener: Search Input
+        searchInput.addEventListener('input', (e) => {
+            const keyword = e.target.value.toLowerCase();
+            
+            // Filter array berdasarkan Judul atau Excerpt
+            filteredArticles = allArticles.filter(article => 
+                article.title.toLowerCase().includes(keyword) || 
+                article.excerpt.toLowerCase().includes(keyword)
+            );
+
+            // Reset ke halaman 1 setiap kali search berubah
+            currentPage = 1;
+            renderPage();
+        });
+
+        // Jalankan saat load
         document.addEventListener('DOMContentLoaded', loadNews);
     </script>
 
